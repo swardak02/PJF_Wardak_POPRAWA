@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+  <main class="profile-page layout layout--3">
+    <div class="container">
+      <div class="offerList">
+        <div class="profile">
+          <div class="profile__avatar">
+            <div class="avatar avatar--large active">
+                {% if offer.picture %}
+                  <img src='../../uploads/cv_images/{{ offer.picture.name }} '/>
+                {% else %}
+                  <img src=https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png/>
+                {% endif %}
+            </div>
+          </div>
+          <div class="profile__info">
+            <h3>{{user.username}}</h3>
+            {% if request.user == user %}
+            <a href="{% url 'update-user' %}" class="btn btn--main btn--pill">Edit Profile</a>
+            {% endif %}
+          </div>
+          <div class="profile__about">
+            <h3>About</h3>
+            <p>
+              Test description
+            </p>
+          </div>
+        </div>
+
+        <div class="offerList__header">
+          <div>
+            <h2>Job Offers created by {{user.username}}</a>
+            </h2>
+          </div>
+        </div>
+        {% include 'base/feed_component.html' %}
+
+      </div>
+    </div>
+  </main>
+{% endblock content %}

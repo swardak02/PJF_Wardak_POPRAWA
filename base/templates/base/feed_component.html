@@ -1,0 +1,33 @@
+{% for offer in offers %}
+<div class="offerListoffer">
+    <div class="offerListoffer__header">
+      <a href="{% url 'user-profile' offer.user.id %}" class="offerListoffer__author">
+        <div class="avatar avatar--small">
+            {% if offer.picture and 'profile' not in request.path %}
+              <img src='../uploads/cv_images/{{ offer.picture.name }} '/>
+            {% elif offer.picture and 'profile' in request.path %}
+              <img src='../../uploads/cv_images/{{ offer.picture.name }} '/>
+            {% else %}
+              <img src=https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/default-avatar.png/>
+            {% endif %}
+        </div>
+        <span>@{{offer.user.username}} ({{offer.name}})</span>
+      </a>
+      <div class="offerListoffer__actions">
+        <span>{{offer.created|timesince}} ago</span>
+      </div>
+    </div>
+    <div class="offerListoffer__content">
+      <a href="{% url 'offer' offer.id %}">{{offer.position}}</a>
+
+    </div>
+    {% if offer.status == "Odrzucona" %}
+        <span class="rejected">Status: {{offer.status}}</span>
+    {% elif offer.status == "W trakcie" %}
+        <span class="pending">Status: {{offer.status}}</span>
+    {% elif offer.status == "Zaakceptowana" %}
+        <span class="accepted">Status: {{offer.status}}</span>
+    {% endif %}
+  </div>
+{% endfor %}
+

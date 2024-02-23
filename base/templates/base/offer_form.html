@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+  <main class="create-offer layout">
+    <div class="container">
+      <div class="layout__box">
+        <div class="layout__boxHeader">
+          <div class="layout__boxTitle">
+            <a href="{% url 'home' %}">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>arrow-left</title>
+                <path
+                  d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                </path>
+              </svg>
+            </a>
+            <h3>Wyślij CV!</h3>
+          </div>
+        </div>
+        {% if 'update-offer' in request.path %}
+        <div class="layout__body">
+          <form class="post-form" action="" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <span>Imię i nazwisko:</span>
+            <textarea name='name' class="form-control"}>{{ offer.name }}</textarea>
+            <span>Adres email:</span>
+            <textarea name='email' class="form-control"}>{{ offer.email }}</textarea>
+              <span>Aplikacja na stanowisko:</span>
+            <textarea name='position' class="form-control">{{ offer.position }}</textarea>
+            <span>Adres zamieszkania:</span>
+            <textarea name='address' class="form-control">{{ offer.address }}</textarea>
+            <span>Umiejętności:</span>
+            <textarea name='skills' class="form-control">{{ offer.skills }}</textarea>
+            <span>Wykształcenie:</span>
+            <textarea name='education' class="form-control">{{ offer.education }}</textarea>
+            <span>Doświadczenie:</span>
+            <textarea name='experience' class="form-control">{{ offer.experience }}</textarea>
+            <span>Zainteresowania:</span>
+            <textarea name='interests' class="form-control">{{ offer.interests }}</textarea>
+            <span>Status oferty:</span>
+            <select id="status" name='status' class="form-control">
+              <option>W trakcie</option>
+              <option>Zaakceptowana</option>
+              <option>Odrzucona</option>
+            </select>
+
+            <div class="form__action">
+              <button class="btn btn--main" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+        {% elif 'create-offer'%}
+          <div class="layout__body">
+            <form class="post-form" action="" enctype="multipart/form-data" method="POST">
+              {% csrf_token %}
+              <div class="form__group">
+                <input type="file" id="uploaded_file" name="uploaded_file">
+              </div>
+              <div class="form__action">
+                <button class="btn btn--main" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+{% endblock content %}
